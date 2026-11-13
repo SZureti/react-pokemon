@@ -1,0 +1,385 @@
+/* Shared page frame. Cap the content width and keep even gutters on both sides. */
+.shell {
+  width: min(1120px, calc(100% - 64px));
+  margin-inline: auto;
+}
+
+/* Spread paired labels apart while vertically centering them. */
+.site-header,
+.roster-header,
+.card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.site-header {
+  min-height: 76px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.94rem;
+  font-weight: 750;
+}
+
+/* Use a compact monospace style for labels, slot numbers, and card metadata. */
+.header-note,
+.eyebrow,
+.roster-count,
+.empty-slot,
+.card-meta {
+  font-family: ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+
+.header-note,
+.roster-count {
+  color: var(--muted);
+}
+
+/* Draw a reusable Poké Ball with a border, a horizontal stripe, and a center button. */
+.ball {
+  position: relative;
+  display: inline-block;
+  width: 1.5em;
+  aspect-ratio: 1;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background: linear-gradient(
+    to bottom,
+    transparent 44%,
+    currentColor 44% 56%,
+    transparent 56%
+  );
+  flex: none;
+}
+
+.ball::after {
+  content: "";
+  position: absolute;
+  inset: 33%;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background: var(--ball-fill, #f9f9f5);
+}
+
+.brand .ball {
+  background: linear-gradient(
+    to bottom,
+    #ffd447 44%,
+    currentColor 44% 56%,
+    transparent 56%
+  );
+}
+
+/* Place the headline and logo side by side, with rounded edges that clip the backdrop. */
+.hero {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid #d8e4f3;
+  border-radius: 26px;
+  background: #eaf2fc;
+}
+
+/* Keep copy above the artwork backdrop and scale padding with the viewport. */
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  padding: clamp(32px, 5vw, 64px);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #315781;
+}
+
+.accent-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffcf32;
+  border: 1px solid #ac7910;
+  flex: none;
+}
+
+/* Clamp the headline so it stays readable on phones and fits the desktop hero. */
+h1 {
+  margin-top: 18px;
+  font-size: clamp(2.65rem, 5vw, 4.05rem);
+  line-height: 0.99;
+  letter-spacing: -0.065em;
+}
+
+.hero-description {
+  max-width: 34ch;
+  margin: 20px 0 26px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* Give the single action a high-contrast color and a generous click target. */
+.hero button {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 50px;
+  padding: 0 17px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--ink);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.hero button:hover:not(:disabled) {
+  background: #254770;
+}
+.hero button:disabled {
+  cursor: wait;
+}
+.button-arrow {
+  color: #ffd447;
+  font-size: 1.2rem;
+}
+
+/* Rotate the highlighted edge during loading. Keep it still for reduced-motion users. */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ffffff50;
+  border-top-color: #ffd447;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+}
+
+/* Center the supplied logo. A pseudo-element adds a backdrop without extra markup. */
+.hero-art {
+  display: grid;
+  place-items: center;
+  align-self: stretch;
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  padding: 0 7% 0 0;
+}
+
+.hero-art::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 74%;
+  aspect-ratio: 1;
+  border: 1px solid #cadcf1;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f8fbff 0 35%, #dceafa 75%);
+}
+
+.hero-art img {
+  width: 100%;
+  height: auto;
+}
+
+/* Separate the results from the hero and give the roster count a compact label. */
+.roster {
+  margin-top: 34px;
+}
+.roster h2 {
+  font-size: 1.65rem;
+  letter-spacing: -0.04em;
+}
+
+.roster-count {
+  padding: 5px 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.roster-status {
+  margin: 6px 0 17px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+.type-name,
+.pokemon-card h3,
+.type-badge {
+  text-transform: capitalize;
+}
+
+/* Put request errors above the roster, where they can be read without hiding an existing team. */
+.error {
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  border: 1px solid #f1c9c0;
+  border-radius: 8px;
+  background: #fff1ed;
+  color: #8e2e25;
+}
+
+/* Share the same column layout between empty slots and populated cards. */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.empty-slot,
+.pokemon-card {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+/* Use dashed outlines and muted colors to distinguish unfilled slots. */
+.empty-slot {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 10px;
+  min-height: 112px;
+  border-style: dashed;
+  color: #627188;
+}
+
+.empty-slot .ball {
+  font-size: 1.2rem;
+  opacity: 0.6;
+}
+
+/* Group each Pokémon’s metadata, artwork, name, and type badges. */
+.pokemon-card {
+  padding: 12px;
+  background: white;
+}
+
+.card-meta {
+  min-height: 17px;
+  color: var(--muted);
+  font-size: 0.61rem;
+  gap: 4px;
+}
+
+.lead-label {
+  color: #725306;
+  text-align: right;
+}
+/* Reserve a fixed-height artwork area. Contain the image so it cannot overlap the name. */
+.card-art {
+  display: grid;
+  place-items: center;
+  height: 120px;
+  color: var(--muted);
+  --ball-fill: #fff;
+}
+
+.card-art img {
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+}
+.pokemon-card h3 {
+  font-size: 1rem;
+  overflow-wrap: anywhere;
+}
+/* Let type badges wrap when a card is too narrow for both on one line. */
+.types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 0;
+  margin: 8px 0 0;
+  list-style: none;
+}
+
+.type-badge {
+  border-radius: 20px;
+  background: #eaf2fc;
+  color: #315781;
+  padding: 3px 8px;
+  font-size: 0.7rem;
+  font-weight: 650;
+}
+
+/* Separate the attribution from the roster with a quiet border. */
+.site-footer {
+  margin-block: 28px 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+/* Tablet layout. Three columns leave enough room for names and badges. */
+@media (max-width: 880px) {
+  .team-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Stack the hero on phones and let the headline wrap naturally. */
+@media (max-width: 640px) {
+  .shell {
+    width: calc(100% - 32px);
+  }
+  .site-header {
+    min-height: 60px;
+  }
+  .header-note {
+    display: none;
+  }
+  .hero {
+    grid-template-columns: 1fr;
+    border-radius: 18px;
+  }
+  .hero-copy {
+    padding: 28px 22px 12px;
+  }
+  .hero-break {
+    display: none;
+  }
+  .hero-art {
+    padding: 0 24px;
+  }
+  .hero-art::before {
+    width: 62%;
+  }
+  .hero-art img {
+    max-width: 350px;
+  }
+  .roster {
+    margin-top: 25px;
+  }
+}
+
+/* On narrow phones, two columns give each card more space. */
+@media (max-width: 420px) {
+  .team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

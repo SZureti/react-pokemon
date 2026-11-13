@@ -1,0 +1,45 @@
+@import "tailwindcss" important;
+
+/* Setting the global font and colors to keep the colors consistent across components. */
+:root {
+  font-family: system-ui, sans-serif;
+  color: #172741;
+  background: #f9f9f5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --ink: #172741;
+  --muted: #536278;
+  --line: #dce1e7;
+}
+
+/* Including padding and borders in declared sizes to make layout widths predictable. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Reset browser spacing and let controls inherit the page typography. */
+body {
+  margin: 0;
+  min-width: 280px;
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+button {
+  font: inherit;
+}
+a {
+  color: inherit;
+}
+
+/* Making the keyboard focus easy to locate on interactive elements. */
+:focus-visible {
+  outline: 3px solid #1e60a5;
+  outline-offset: 4px;
+}
